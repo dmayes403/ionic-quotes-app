@@ -26,7 +26,7 @@ export class QuotesPage implements OnInit{
         // console.log(this.quoteGroup);
     }
 
-    onAddToFavorite(selectedQuote: Quote) {
+    onAddToFavorites(selectedQuote: Quote) {
         const alert = this.alertCtrl.create({
             title: 'Add Quote',
             subTitle: 'Are you sure?',
@@ -36,19 +36,25 @@ export class QuotesPage implements OnInit{
                     text: 'Yes, go ahead',
                     handler: () => {
                         this.quotesService.addQuoteToFavorites(selectedQuote);
-                        console.log('Ok');
                     }
                 },
                 {
                     text: 'No, I changed my mind!',
                     role: 'cancel',
                     handler: () => {
-                        console.log('Cancalled');
                     }
                 }
             ]
         });
 
         alert.present();
+    }
+
+    onRemoveFromFavorites(quote: Quote) {
+        this.quotesService.removeQuoteFromFavorites(quote);
+    }
+
+    isFavorite(quote: Quote) {
+        return this.quotesService.isQuoteFavorite(quote);
     }
 }
